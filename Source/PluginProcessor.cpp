@@ -101,9 +101,9 @@ void TapSynthAudioProcessor::changeProgramName(int index, const juce::String& ne
 {
 }
 
-void TapSynthAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)  //Вызывается перед началом воспроизведения, чтобы позволить процессору подготовиться.
+void TapSynthAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)  //Р’С‹Р·С‹РІР°РµС‚СЃСЏ РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ, С‡С‚РѕР±С‹ РїРѕР·РІРѕР»РёС‚СЊ РїСЂРѕС†РµСЃСЃРѕСЂСѓ РїРѕРґРіРѕС‚РѕРІРёС‚СЊСЃСЏ.
 {
-    synth.setCurrentPlaybackSampleRate(sampleRate); //контролирует скорость воспроизведения
+    synth.setCurrentPlaybackSampleRate(sampleRate); //РєРѕРЅС‚СЂРѕР»РёСЂСѓРµС‚ СЃРєРѕСЂРѕСЃС‚СЊ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ
     //visualise.clear();
     visualise.setColours(juce::Colours::blue, juce::Colours::green);
     visualise.setBufferSize(256);
@@ -112,7 +112,7 @@ void TapSynthAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     for (int i = 0; i < synth.getNumVoices(); i++)
     {
-        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) //преобразовываем, чтобы была возможность вызвать свой метод
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) //РїСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµРј, С‡С‚РѕР±С‹ Р±С‹Р»Р° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РІС‹Р·РІР°С‚СЊ СЃРІРѕР№ РјРµС‚РѕРґ
         {
             voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
         }
@@ -159,9 +159,9 @@ void TapSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce
         buffer.clear(i, 0, buffer.getNumSamples());
     {  
 
-        for (int i = 0; i < synth.getNumVoices(); ++i)//в цикле происходит обновление изменяемых пользователем значений
+        for (int i = 0; i < synth.getNumVoices(); ++i)//РІ С†РёРєР»Рµ РїСЂРѕРёСЃС…РѕРґРёС‚ РѕР±РЅРѕРІР»РµРЅРёРµ РёР·РјРµРЅСЏРµРјС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј Р·РЅР°С‡РµРЅРёР№
         {
-            if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) //проверка на то что voice правильно преобразовался
+            if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) //РїСЂРѕРІРµСЂРєР° РЅР° С‚Рѕ С‡С‚Рѕ voice РїСЂР°РІРёР»СЊРЅРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°Р»СЃСЏ
             {
                 // Osc
                 auto& oscWaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
@@ -212,7 +212,7 @@ juce::AudioProcessorEditor* TapSynthAudioProcessor::createEditor()
     return new TapSynthAudioProcessorEditor(*this);
 }
 
-void TapSynthAudioProcessor::getStateInformation(juce::MemoryBlock& destData) //сохраняяет и загружает инофрмацию в плагин 
+void TapSynthAudioProcessor::getStateInformation(juce::MemoryBlock& destData) //СЃРѕС…СЂР°РЅСЏСЏРµС‚ Рё Р·Р°РіСЂСѓР¶Р°РµС‚ РёРЅРѕС„СЂРјР°С†РёСЋ РІ РїР»Р°РіРёРЅ 
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
@@ -222,7 +222,7 @@ void TapSynthAudioProcessor::getStateInformation(juce::MemoryBlock& destData) //
     copyXmlToBinary(*xml, destData);
 }
 
-void TapSynthAudioProcessor::setStateInformation(const void* data, int sizeInBytes) //сохраняет состояние плагина перд закрытием 
+void TapSynthAudioProcessor::setStateInformation(const void* data, int sizeInBytes) //СЃРѕС…СЂР°РЅСЏРµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ РїР»Р°РіРёРЅР° РїРµСЂРґ Р·Р°РєСЂС‹С‚РёРµРј 
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -270,6 +270,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout TapSynthAudioProcessor::crea
     return { params.begin(), params.end() };
 }
 
+
+
+
 void TapSynthAudioProcessor::setPreset()
 {
 
@@ -281,19 +284,20 @@ void TapSynthAudioProcessor::setPreset()
         switch ((int)*parameters.getRawParameterValue("MICOMBO_ID"))
         {
         case 0:
-            preXml = juce::XmlDocument::parse(juce::File("C:/presets/2.xml"));
+            preXml = juce::XmlDocument::parse(juce::File::getSpecialLocation(juce::File::globalApplicationsDirectory).getChildFile("presets/0.xml"));
             apvts.state = (juce::ValueTree::fromXml(*preXml));
             b = (int)*parameters.getRawParameterValue("MICOMBO_ID");
             break;
     
         case 1:
-            preXml = juce::XmlDocument::parse(juce::File("C:/presets/1.xml"));
+                 
+            preXml = juce::XmlDocument::parse(juce::File::getSpecialLocation(juce::File::globalApplicationsDirectory).getChildFile("presets/1.xml"));
             apvts.state = (juce::ValueTree::fromXml(*preXml));
             b = (int)*parameters.getRawParameterValue("MICOMBO_ID");
             break;
 
         case 2:
-            preXml = juce::XmlDocument::parse(juce::File("C:/presets/3.xml"));
+            preXml = juce::XmlDocument::parse(juce::File::getSpecialLocation(juce::File::globalApplicationsDirectory).getChildFile("presets/2.xml"));
             apvts.state = (juce::ValueTree::fromXml(*preXml));
             b = (int)*parameters.getRawParameterValue("MICOMBO_ID");
             break;
