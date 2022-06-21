@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Parameters>
+  <PARAM id="ATTACK" value="0.1000000014901161"/>
+  <PARAM id="DECAY" value="0.1000000014901161"/>
+  <PARAM id="FILTERATTACK" value="0.1000000014901161"/>
+  <PARAM id="FILTERDECAY" value="0.1000000014901161"/>
+  <PARAM id="FILTERFREQ" value="200.0"/>
+  <PARAM id="FILTERRELEASE" value="0.4000000059604645"/>
+  <PARAM id="FILTERRES" value="1.0"/>
+  <PARAM id="FILTERSUSTAIN" value="1.0"/>
+  <PARAM id="FILTERTYPE" value="0.0"/>
+  <PARAM id="OSC1FMDEPTH" value="0.0"/>
+  <PARAM id="OSC1FMFREQ" value="0.0"/>
+  <PARAM id="OSC1WAVETYPE" value="1.0"/>
+  <PARAM id="RELEASE" value="0.4000000059604645"/>
+  <PARAM id="SUSTAIN" value="1.0"/>
+</Parameters>
